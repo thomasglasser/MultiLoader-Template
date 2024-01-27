@@ -1,28 +1,31 @@
 plugins {
-    id 'java'
-    id 'idea'
+    id 'fabric-loom' version "${loom_version}"
     id 'maven-publish'
-    id 'fabric-loom' version '1.4-SNAPSHOT'
+    id 'idea'
 }
-base {
-    archivesName = "${mod_name}-fabric-${minecraft_version}"
-}
+
+archivesBaseName = "${mod_id}-fabric-${minecraft_version}"
+
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings loom.officialMojangMappings()
+
+    mappings loom.layered() {
+        officialMojangMappings()
+//        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
+        parchment("org.parchmentmc.data:parchment-1.20.3:${parchment_version}@zip")
+    }
+
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    compileOnly project(":common")
+    implementation project(":Common")
 }
 
 loom {
-    if (project(":common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
-        accessWidenerPath.set(project(":common").file("src/main/resources/${mod_id}.accesswidener"))
+    if (project(":Common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
+        accessWidenerPath.set(project(":Common").file("src/main/resources/${mod_id}.accesswidener"))
     }
-    mixin {
-        defaultRefmapName.set("${mod_id}.refmap.json")
-    }
+
     runs {
         client {
             client()
@@ -37,29 +40,26 @@ loom {
             runDir("run")
         }
     }
+
+    mixin {
+        add sourceSets.main, "${mod_id}.refmap.json"
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
-    source(project(":common").sourceSets.main.allSource)
-}
-tasks.withType(Javadoc).configureEach {
-    source(project(":common").sourceSets.main.allJava)
-}
-tasks.named("sourcesJar", Jar) {
-    from(project(":common").sourceSets.main.allSource)
-}
-
-processResources {
-    from project(":common").sourceSets.main.resources
+    source(project(":Common").sourceSets.main.allSource)
 }
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId base.archivesName.get()
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
             from components.java
         }
     }
+
     repositories {
         maven {
             url "file://" + System.getenv("local_maven")
