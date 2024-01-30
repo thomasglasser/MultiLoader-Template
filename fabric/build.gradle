@@ -18,7 +18,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    implementation project(":Common")
+    implementation project(":common")
 
     // Runtime
     modRuntimeOnly "com.terraformersmc:modmenu:${modmenu_version}"
@@ -30,9 +30,9 @@ dependencies {
 }
 
 loom {
-    if (project(":Common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
+    if (project(":common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
         // Must specify "accesswidener" field in fabric.mod.json
-        accessWidenerPath.set(project(":Common").file("src/main/resources/${mod_id}.accesswidener"))
+        accessWidenerPath.set(project(":common").file("src/main/resources/${mod_id}.accesswidener"))
     }
 
     runs {
@@ -56,11 +56,11 @@ loom {
 }
 
 tasks.withType(ProcessResources).configureEach {
-    from project(":Common").sourceSets.main.resources
+    from project(":common").sourceSets.main.resources
 }
 
 tasks.withType(JavaCompile).configureEach {
-    source(project(":Common").sourceSets.main.allSource)
+    source(project(":common").sourceSets.main.allSource)
 }
 
 publishing {

@@ -12,8 +12,8 @@ base {
 }
 
 loom {
-    if (project(":Common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
-        accessWidenerPath.set(project(":Common").file("src/main/resources/${mod_id}.accesswidener"))
+    if (project(":common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
+        accessWidenerPath.set(project(":common").file("src/main/resources/${mod_id}.accesswidener"))
     }
 }
 
@@ -58,10 +58,10 @@ Generates a new common artifact in intermediary mappings.
 
 remapJar {
     targetNamespace.set("named")
-    dependsOn("remapCommonJar")
+    dependsOn("remapcommonJar")
 }
 
-tasks.register("remapCommonJar", RemapJarTask,  task -> {
+tasks.register("remapcommonJar", RemapJarTask,  task -> {
     final AbstractArchiveTask jarTask = getTasks().named(JavaPlugin.JAR_TASK_NAME, AbstractArchiveTask.class).get();
     task.dependsOn(jarTask);
     task.setDescription("Remaps the built project jar to intermediary mappings.");
