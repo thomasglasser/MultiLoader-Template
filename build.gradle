@@ -4,6 +4,12 @@ plugins {
 
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+
+    base {
+        archivesName = "${mod_id}-${project.name}-${minecraft_version}"
+    }
 
     java.toolchain.languageVersion = JavaLanguageVersion.of(17)
     java.withSourcesJar()
@@ -95,16 +101,14 @@ subprojects {
                 description: project.description,
                 mod_author: mod_author,
                 contributors: contributors,
-                homepage: homepage,
-                sources: sources,
-                issues: issues,
                 license: license,
                 icon: icon,
                 neoforge_version: neoforge_version,
                 fabric_loader_version: fabric_loader_version,
                 fabric_version: fabric_version,
                 minecraft_version: minecraft_version,
-                next_minecraft_version: next_minecraft_version
+                next_minecraft_version: next_minecraft_version,
+                github_name: github_name
         ]
         inputs.properties replaceProperties
 
@@ -125,5 +129,67 @@ subprojects {
     tasks.withType(GenerateModuleMetadata) {
 
         enabled = false
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                groupId = project.group
+                artifactId = base.archivesName.get()
+                version project.version
+                from components.java
+
+                pom {
+                    name = project.mod_name
+                    description = project.description
+                    url = "https://github.com/thomasglasser/${github_name}/wiki"
+                    licenses {
+                        license {
+                            name = project.license
+                            url = project.license_url
+                        }
+                    }
+                    contributors {
+                        project.contributors.each {
+                            contributor {
+                                name = it
+                            }
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = project.mod_author
+                            name = project.mod_author
+                        }
+                    }
+                    issueManagement {
+                        system = 'GitHub'
+                        url = "https://github.com/thomasglasser/${github_name}/issues"
+                    }
+                    scm
+                            {
+                                connection = "scm:git:git://github.com/thomasglasser/${github_name}.git"
+                                developerConnection = "scm:git:ssh://github.com:thomasglasser/${github_name}.git"
+                                url = "http://github.com/thomasglasser/${github_name}/tree/${minecraft_version}"
+                            }
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                credentials {
+                    username = "$usr"
+                    password = "$pwd"
+                }
+
+                url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            }
+        }
+    }
+
+    signing {
+        useGpgCmd()
+        sign publishing.publications
     }
 }

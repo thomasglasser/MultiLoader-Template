@@ -1,11 +1,7 @@
 plugins {
     id 'idea'
-    id 'maven-publish'
     id 'net.neoforged.gradle.userdev' version '7.+'
     id 'java-library'
-}
-base {
-    archivesName = "${mod_id}-neoforge-${minecraft_version}"
 }
 
 subsystems {
@@ -96,25 +92,10 @@ tasks.named('jarJar') {
     archiveClassifier = ''
 }
 
-// Needed for when JiJ is enabled
-//publishing {
-//    publications {
-//        mavenJava(MavenPublication) {
-//            jarJar.component(it)
-//        }
-//    }
-//}
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId base.archivesName.get()
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
+            jarJar.component(it)
         }
     }
 }

@@ -12,9 +12,9 @@
         "${contributors}"
     ],
     "contact": {
-        "homepage": "${homepage}",
-        "sources": "${sources}",
-        "issues": "${issues}"
+        "homepage": "https://github.com/thomasglasser/${github_name}/wiki",
+        "sources": "https://github.com/thomasglasser/${github_name}",
+        "issues": "https://github.com/thomasglasser/${github_name}/issues"
     },
 
     "license": "${license}",
