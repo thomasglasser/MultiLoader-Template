@@ -43,10 +43,10 @@ Generates a new common artifact in intermediary mappings.
 
 remapJar {
     targetNamespace.set("named")
-    dependsOn("remapcommonJar")
+    dependsOn("remapCommonJar")
 }
 
-tasks.register("remapcommonJar", RemapJarTask,  task -> {
+tasks.register("remapCommonJar", RemapJarTask,  task -> {
     final AbstractArchiveTask jarTask = getTasks().named(JavaPlugin.JAR_TASK_NAME, AbstractArchiveTask.class).get();
     task.dependsOn(jarTask);
     task.setDescription("Remaps the built project jar to intermediary mappings.");
