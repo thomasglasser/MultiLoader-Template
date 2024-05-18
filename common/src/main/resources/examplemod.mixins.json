@@ -1,14 +1,16 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "dev.thomasglasser.multiloadertemplate.mixin",
+  "package": "com.example.examplemod.mixin",
+  "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
-    "mixins": [
-    ],
-    "client": [
+  "mixins": [],
+  "client": [
+    "MixinMinecraft"
   ],
   "server": [],
   "injectors": {
     "defaultRequire": 1
   }
 }
+
