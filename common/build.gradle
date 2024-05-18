@@ -29,6 +29,8 @@ dependencies {
     }
 }
 
+sourceSets.main.resources { srcDir './src/generated/resources' }
+
 import net.fabricmc.loom.task.AbstractRemapJarTask
 tasks.withType(AbstractRemapJarTask).each {
     it.targetNamespace = "named"
@@ -68,5 +70,7 @@ configurations {
 
 artifacts {
     commonJava sourceSets.main.java.sourceDirectories.singleFile
-    commonResources sourceSets.main.resources.sourceDirectories.singleFile
+    sourceSets.main.resources.sourceDirectories.files.each {
+        commonResources it
+    }
 }
