@@ -1,14 +1,14 @@
 import net.fabricmc.loom.task.RemapJarTask
 
 plugins {
-    id 'idea'
-    id 'java'
+    id 'multiloader-common'
     id 'fabric-loom' version "${loom_version}"
 }
 
 loom {
-    if (project(":common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
-        accessWidenerPath.set(project(":common").file("src/main/resources/${mod_id}.accesswidener"))
+    def aw = file("src/main/resources/${mod_id}.accesswidener")
+    if(aw.exists()){
+        accessWidenerPath.set(aw)
     }
 }
 
@@ -34,8 +34,6 @@ tasks.withType(AbstractRemapJarTask).each {
     it.targetNamespace = "named"
 }
 
-sourceSets.main.resources.srcDir './src/generated/resources'
-
 /*
 Generates a new common artifact in intermediary mappings.
 */
@@ -56,3 +54,19 @@ tasks.register("remapCommonJar", RemapJarTask,  task -> {
     task.targetNamespace.set("intermediary")
     task.setGroup("fabric")
 })
+
+configurations {
+    commonJava {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+    commonResources {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+}
+
+artifacts {
+    commonJava sourceSets.main.java.sourceDirectories.singleFile
+    commonResources sourceSets.main.resources.sourceDirectories.singleFile
+}
