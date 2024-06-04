@@ -10,6 +10,14 @@ def at = file('src/main/resources/META-INF/accesstransformer.cfg')
 if (at.exists()) {
     minecraft.accessTransformers.file at
 }
+
+subsystems {
+    parchment {
+        minecraftVersion = parchment_minecraft_version
+        mappingsVersion = parchment_version
+    }
+}
+
 runs {
     configureEach {
         modSource project.sourceSets.main
