@@ -6,7 +6,7 @@ issueTrackerURL="https://github.com/thomasglasser/${github_name}/issues"
 modId="${mod_id}" 
 version="${version}" 
 displayName="${mod_name}"
-updateJSONURL = "https://api.modrinth.com/updates/${mod_id}/forge_updates.json"# A URL for the "homepage" for this mod, displayed in the mod UI
+updateJSONURL = "https://api.modrinth.com/updates/${mod_id}/forge_updates.json?neoforge=include"
 displayURL="https://github.com/thomasglasser/${github_name}/wiki"
 logoFile="${icon}"
 credits="${contributors}"
