@@ -39,10 +39,6 @@ runs {
     }
 }
 
-// Sets up a dependency configuration called 'localRuntime'.
-// This configuration should be used instead of 'runtimeOnly' to declare
-// a dependency that will be present for runtime testing but that is
-// "optional", meaning it will not be pulled by dependents of this mod.
 configurations {
     runtimeClasspath.extendsFrom localRuntime
 }
@@ -53,9 +49,7 @@ dependencies {
     implementation "net.neoforged:neoforge:${neoforge_version}"
     compileOnly project(":common")
 
-    jarJar implementation("dev.thomasglasser.tommylib:tommylib-neoforge-${minecraft_version}:${tommylib_version}") {
-        transitive = false
-    }
+    jarJar implementation("dev.thomasglasser.tommylib:tommylib-neoforge-${minecraft_version}:${tommylib_version}")
 
     // Runtime
     localRuntime "maven.modrinth:jade:${jade_version}+neoforge"
