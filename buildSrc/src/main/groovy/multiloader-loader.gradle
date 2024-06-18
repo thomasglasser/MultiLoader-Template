@@ -12,7 +12,7 @@ configurations {
 }
 
 dependencies {
-    compileOnly(project(':common')) {
+    implementation(project(':common')) {
         capabilities {
             requireCapability "$group:$mod_id"
         }

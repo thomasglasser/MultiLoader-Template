@@ -15,8 +15,6 @@ java {
 }
 
 repositories {
-    mavenCentral()
-    mavenLocal()
     exclusiveContent {
         forRepository {
             maven {
@@ -81,18 +79,6 @@ repositories {
     exclusiveContent {
         forRepository {
             maven {
-                name = 'NeoForge'
-                url = 'https://maven.neoforged.net/releases'
-            }
-        }
-        filter {
-            includeGroupAndSubgroups("net.neoforged")
-            includeGroup("codechicken")
-        }
-    }
-    exclusiveContent {
-        forRepository {
-            maven {
                 name = 'Sponge'
                 url = 'https://repo.spongepowered.org/repository/maven-public'
             }
@@ -108,6 +94,16 @@ repositories {
         }
         filter { includeGroupAndSubgroups("dev.thomasglasser.tommylib") }
     }
+    maven {
+        name = 'NeoForge'
+        url = 'https://maven.neoforged.net/releases'
+    }
+    maven {
+        name = 'Mojang Meta'
+        url = 'https://maven.neoforged.net/mojang-meta'
+    }
+    mavenCentral()
+    mavenLocal()
 }
 
 // Declare capabilities on the outgoing configurations.
@@ -123,17 +119,7 @@ repositories {
     }
 }
 
-sourcesJar {
-    from(rootProject.file("LICENSE")) {
-        rename { "${it}_${mod_name}" }
-    }
-}
-
 jar {
-    from(rootProject.file("LICENSE")) {
-        rename { "${it}_${mod_name}" }
-    }
-
     manifest {
         attributes([
                 'Specification-Title'   : mod_name,
@@ -166,7 +152,7 @@ processResources {
             "java_version": java_version,
             "icon": icon,
             "github_name": github_name,
-            tommylib_version: tommylib_version
+            "tommylib_version": tommylib_version
     ]
 
     filesMatching(['**/pack.mcmeta', 'fabric.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {

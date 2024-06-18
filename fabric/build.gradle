@@ -13,11 +13,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    implementation project(":common")
 
-    include modImplementation("dev.thomasglasser.tommylib:tommylib-fabric-${minecraft_version}:${tommylib_version}") {
-        transitive = false
-    }
+    include modImplementation("dev.thomasglasser.tommylib:tommylib-fabric-${minecraft_version}:${tommylib_version}")
 
     // Runtime
     modLocalRuntime "com.terraformersmc:modmenu:${modmenu_version}"
@@ -26,7 +23,7 @@ dependencies {
 }
 
 loom {
-    def aw = project(":common").file("src/main/resources/${mod_id}.accesswidener")
+    def aw = file("src/main/resources/${mod_id}.accesswidener")
     if (aw.exists()) {
         accessWidenerPath.set(aw)
     }
@@ -37,6 +34,12 @@ loom {
             setConfigName("Fabric Client")
             ideConfigGenerated(true)
             runDir("run")
+        }
+        client_alt {
+            client()
+            setConfigName("Fabric Client 2")
+            ideConfigGenerated(true)
+            runDir("run_alt")
         }
         server {
             server()
