@@ -57,6 +57,7 @@ repositories {
         filter {
             includeGroupAndSubgroups "me.shedaniel"
             includeGroupAndSubgroups "dev.architectury"
+            includeGroupAndSubgroups "com.terraformersmc"
         }
     }
     exclusiveContent {
@@ -97,6 +98,15 @@ repositories {
             }
         }
         filter { includeGroupAndSubgroups("org.spongepowered") }
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'TommyLib'
+                url = 'https://dl.cloudsmith.io/public/thomasglasser/tommylib/maven/'
+            }
+        }
+        filter { includeGroupAndSubgroups("dev.thomasglasser.tommylib") }
     }
 }
 
@@ -204,12 +214,12 @@ publishing {
 
     repositories {
         maven {
+            name = "Cloudsmith"
+            url "https://maven.cloudsmith.io/thomasglasser/${mod_id}/"
             credentials {
-                username = project.findProperty("MAVEN_USER") ?: System.getenv("MAVEN_USER")
-                password = project.findProperty("MAVEN_PASSWORD") ?: System.getenv("MAVEN_PASSWORD")
+                username = project.findProperty("CLOUDSMITH_USERNAME") ?: System.getenv("CLOUDSMITH_USERNAME")
+                password = project.findProperty("CLOUDSMITH_API_KEY") ?: System.getenv("CLOUDSMITH_API_KEY")
             }
-
-            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         }
 
         maven {
