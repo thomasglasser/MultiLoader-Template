@@ -19,14 +19,25 @@ neoForge {
     runs {
         client {
             client()
-
+            ideName = "NeoForge Client"
+            gameDirectory = project.layout.projectDirectory.dir('runs/client')
         }
         client_alt {
             client()
+            ideName = "NeoForge Client 2"
+            gameDirectory = project.layout.projectDirectory.dir('runs/client_alt')
             programArguments = ["--username", "DevAlt"]
+        }
+        server {
+            server()
+            ideName = "NeoForge Server"
+            gameDirectory = project.layout.projectDirectory.dir('runs/server')
         }
         data {
             data()
+            ideName = "NeoForge Data Generation"
+            gameDirectory = project.layout.projectDirectory.dir('runs/data')
+            programArguments = ['--output', file('../common/src/generated/resources/').getAbsolutePath(), '--existing', file('../common/src/main/resources/').getAbsolutePath()]
         }
     }
 }

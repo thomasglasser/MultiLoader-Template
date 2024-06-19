@@ -136,7 +136,7 @@ jar {
 processResources {
     def expandProps = [
             "version": version,
-            "group": project.group, //Else we target the task's group.
+            "group": project.group,
             "minecraft_version": minecraft_version,
             "next_minecraft_version": next_minecraft_version,
             "fabric_version": fabric_version,
@@ -155,7 +155,7 @@ processResources {
             "tommylib_version": tommylib_version
     ]
 
-    filesMatching(['**/pack.mcmeta', 'fabric.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
+    filesMatching(['fabric.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
         expand expandProps
     }
     inputs.properties(expandProps)

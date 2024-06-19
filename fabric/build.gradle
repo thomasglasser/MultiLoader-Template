@@ -33,19 +33,19 @@ loom {
             client()
             setConfigName("Fabric Client")
             ideConfigGenerated(true)
-            runDir("run")
+            runDir("runs/client")
         }
         client_alt {
             client()
             setConfigName("Fabric Client 2")
             ideConfigGenerated(true)
-            runDir("run_alt")
+            runDir("runs/client_alt")
         }
         server {
             server()
             setConfigName("Fabric Server")
             ideConfigGenerated(true)
-            runDir("run")
+            runDir("runs/server")
         }
     }
 

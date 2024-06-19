@@ -21,6 +21,8 @@
     "entrypoints": {
         "main": [
             "dev.thomasglasser.multiloadertemplate.MultiloaderTemplateFabric"
+        ],
+        "client": [
         ]
     },
     "mixins": [
