@@ -27,7 +27,9 @@ loom {
     if (aw.exists()) {
         accessWidenerPath.set(aw)
     }
-
+    mixin {
+        defaultRefmapName.set("${mod_id}.refmap.json")
+    }
     runs {
         client {
             client()
@@ -47,9 +49,5 @@ loom {
             ideConfigGenerated(true)
             runDir("runs/server")
         }
-    }
-
-    mixin {
-        add sourceSets.main, "${mod_id}.refmap.json"
     }
 }
