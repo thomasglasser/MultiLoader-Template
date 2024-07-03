@@ -14,8 +14,7 @@ public class MultiloaderTemplate {
         LOGGER.info("Initializing {} for {} in a {} environment...", MOD_NAME, TommyLibServices.PLATFORM.getPlatformName(), TommyLibServices.PLATFORM.getEnvironmentName());
     }
 
-    public static ResourceLocation modLoc(String s)
-    {
+    public static ResourceLocation modLoc(String s) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, s);
     }
 }
