@@ -118,7 +118,17 @@ repositories {
     }
 }
 
+sourcesJar {
+    from(rootProject.file('LICENSE')) {
+        rename { "${it}_${mod_name}" }
+    }
+}
+
 jar {
+    from(rootProject.file('LICENSE')) {
+        rename { "${it}_${mod_name}" }
+    }
+
     manifest {
         attributes([
                 'Specification-Title'   : mod_name,
@@ -154,7 +164,7 @@ processResources {
             "tommylib_version": tommylib_version
     ]
 
-    filesMatching(['fabric.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
+    filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
         expand expandProps
     }
     inputs.properties(expandProps)

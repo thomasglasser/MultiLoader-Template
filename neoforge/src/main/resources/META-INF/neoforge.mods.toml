@@ -1,10 +1,10 @@
 modLoader="javafml"
 loaderVersion="[${major_fml_version},)"
 license="${license}"
-issueTrackerURL="https://github.com/thomasglasser/${github_name}/issues" 
-[[mods]] 
-modId="${mod_id}" 
-version="${version}" 
+issueTrackerURL="https://github.com/thomasglasser/${github_name}/issues"
+[[mods]]
+modId="${mod_id}"
+version="${version}"
 displayName="${mod_name}"
 updateJSONURL = "https://api.modrinth.com/updates/${mod_id}/forge_updates.json?neoforge=include"
 displayURL="https://github.com/thomasglasser/${github_name}/wiki"
